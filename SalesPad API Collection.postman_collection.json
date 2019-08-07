@@ -1,0 +1,261 @@
+{
+	"info": {
+		"_postman_id": "e4d3f285-eb42-407e-9d2e-5b4d09db237c",
+		"name": "SalesPad API Collection",
+		"description": "This collection contains authentication and usage examples for SalesPad's API!  Make sure to update variables to contain logic information before continuing.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Basic Session",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{Password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{UserName}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{APIUrl}}/api/Session",
+					"host": [
+						"{{APIUrl}}"
+					],
+					"path": [
+						"api",
+						"Session"
+					]
+				},
+				"description": "Get a basic session token from the API; note that these will go invalid if not used in 15 minutes."
+			},
+			"response": []
+		},
+		{
+			"name": "Permanent Session",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{Password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{UserName}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{APIUrl}}/api/Session/Permanent",
+					"host": [
+						"{{APIUrl}}"
+					],
+					"path": [
+						"api",
+						"Session",
+						"Permanent"
+					]
+				},
+				"description": "Retrieve a permanent session to use moving forward!"
+			},
+			"response": []
+		},
+		{
+			"name": "Customer Search",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Session-ID",
+						"value": "4b84c2ad-c63b-4d23-914e-1c385be4cf47",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{APIUrl}}/api/CustomerSearch",
+					"host": [
+						"{{APIUrl}}"
+					],
+					"path": [
+						"api",
+						"CustomerSearch"
+					]
+				},
+				"description": "Retrieves customers."
+			},
+			"response": []
+		},
+		{
+			"name": "Customer Search With Odata",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Session-ID",
+						"value": "4b84c2ad-c63b-4d23-914e-1c385be4cf47",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{APIUrl}}/api/CustomerSearch?$filter=substringof( 'AARON',Customer_Name) eq true",
+					"host": [
+						"{{APIUrl}}"
+					],
+					"path": [
+						"api",
+						"CustomerSearch"
+					],
+					"query": [
+						{
+							"key": "$filter",
+							"value": "substringof( 'AARON',Customer_Name) eq true"
+						}
+					]
+				},
+				"description": "Retrieves customers."
+			},
+			"response": []
+		},
+		{
+			"name": "Customer Create",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Session-ID",
+						"value": "4b84c2ad-c63b-4d23-914e-1c385be4cf47",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"Customer_Name\": \"sample customer\"\r\n}"
+				},
+				"url": {
+					"raw": "{{APIUrl}}/api/Customer",
+					"host": [
+						"{{APIUrl}}"
+					],
+					"path": [
+						"api",
+						"Customer"
+					]
+				},
+				"description": "Create a customer"
+			},
+			"response": []
+		},
+		{
+			"name": "Customer Modification",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Session-ID",
+						"type": "text",
+						"value": "ea66f768-47b4-4135-ba4b-2409dee77478"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"Note\": \"Good Note 2\",\r\n  \"UserFieldData\": [\r\n    \"TEST\"\r\n  ],\r\n  \"UserFieldNames\": [\r\n    \"xTest\"\r\n  ]\r\n}"
+				},
+				"url": {
+					"raw": "{{APIUrl}}/api/Customer/000003",
+					"host": [
+						"{{APIUrl}}"
+					],
+					"path": [
+						"api",
+						"Customer",
+						"000003"
+					]
+				},
+				"description": "Edit a customer"
+			},
+			"response": []
+		},
+		{
+			"name": "Remove Session (Logout)",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Session-ID",
+						"value": "71eafc98-2069-4423-a264-5bfd6f58beb1",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{APIUrl}}/api/session",
+					"host": [
+						"{{APIUrl}}"
+					],
+					"path": [
+						"api",
+						"session"
+					]
+				},
+				"description": "This is how logout works, by deleting sessions."
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "ab6db418-e77a-410a-9abb-fdb058e0ad04",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "d6737c87-360f-4660-80ce-9e968592ed61",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "54b5ccdc-65b8-465f-af4a-8d735b95cf5d",
+			"key": "UserName",
+			"value": "sa",
+			"type": "string"
+		},
+		{
+			"id": "ca26961f-251e-438d-8a91-5d5139df16cb",
+			"key": "Password",
+			"value": "sa",
+			"type": "string"
+		},
+		{
+			"id": "2671ac77-6938-4f5b-bddf-bd05a2d501c2",
+			"key": "APIUrl",
+			"value": "https://api.brianwerth.salespad.com",
+			"type": "string"
+		}
+	]
+}
